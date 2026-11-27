@@ -1,6 +1,6 @@
-# Smart IoT Assistant
+# NEST AI
 
-Responsive React, Vite, and TypeScript frontend for the Smart IoT Assistant project.
+Responsive React, Vite, and TypeScript frontend for NEST AI.
 The approved light theme uses mist backgrounds, white cards, teal controls, and distinct status colors.
 
 [Figma design and prototype](https://www.figma.com/design/tG1inuztzjnfehjM9DqThk)
@@ -16,7 +16,7 @@ npm run dev
 
 On Windows PowerShell, use `npm.cmd ci` and `npm.cmd run dev` if running scripts is disabled. Stop the dev server with Ctrl+C before reinstalling dependencies. After the first install, use the dev command on its own.
 
-Open the local URL printed by Vite. The demo starts in **Normal** and stores scenario changes in the running session. Run `npm run build` to generate the production build in `dist/`.
+Open the local URL printed by Vite and select **Open dashboard**. The demo starts in **Normal** and stores scenario changes in the running session. Run `npm run build` to generate the production build in `dist/`.
 
 ## Demo walkthrough
 

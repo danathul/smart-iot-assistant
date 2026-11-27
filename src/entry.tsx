@@ -16,11 +16,12 @@ const routes = {
   alerts: ['Alerts', 'Alerts', 'BellIcon', 'Alerts Center', 'Review sensor alerts by severity and time.'],
   simulator: ['Simulator', 'Sim', 'SlidersIcon', 'Simulator', 'Switch scenarios to preview changes in home status.'],
 } as const
-type Route = keyof typeof routes
-const routeKeys = Object.keys(routes) as Route[]
+type WorkspaceRoute = keyof typeof routes
+type Route = WorkspaceRoute | 'welcome'
+const routeKeys = Object.keys(routes) as WorkspaceRoute[]
 function routeFromHash(): Route {
   const route = location.hash.slice(1)
-  return routeKeys.find(key => key === route) ?? 'overview'
+  return routeKeys.find(key => key === route) ?? (route ? 'overview' : 'welcome')
 }
 
 function useTelemetry() {
@@ -53,7 +54,7 @@ function App() {
   const [route, setRoute] = useState(routeFromHash)
   const [online, setOnline] = useState(navigator.onLine)
   const { snapshot, alerts, readError, alertError, retry } = useTelemetry()
-  const [name,, , title, subtitle] = routes[route]
+  const [name,, , title, subtitle] = routes[route === 'welcome' ? 'overview' : route]
   useEffect(() => {
     const navigate = () => { setRoute(routeFromHash()); window.scrollTo(0, 0) }
     const syncNetwork = () => setOnline(navigator.onLine)
@@ -66,7 +67,18 @@ function App() {
       window.removeEventListener('offline', syncNetwork)
     }
   }, [])
-  useEffect(() => { document.title = title + ' | Smart IoT Assistant' }, [title])
+  useEffect(() => { document.title = route === 'welcome' ? 'NEST AI' : title + ' | NEST AI' }, [route, title])
+  if (route === 'welcome') {
+    return <main className="welcome">
+      <section className="panel welcome-card">
+        <Brand />
+        <h1>Welcome to NEST AI</h1>
+        <p className="muted">See how your home is doing, check sensor readings, and review alerts in one place.</p>
+        {services.demoTelemetry && <p className="muted welcome-note">This demo uses simulated sensors.</p>}
+        <a className="control primary" href="#overview">Open dashboard<Icon name="ArrowIcon" /></a>
+      </section>
+    </main>
+  }
   return <div className="shell">
     <header className="mobile-head"><Brand /><Badge>{services.demoTelemetry ? 'DEMO' : 'LIVE'}</Badge></header>
     <aside className="sidebar">

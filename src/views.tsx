@@ -58,12 +58,18 @@ export function Analytics({ snapshot }: { snapshot?: Snapshot }) {
   const [sensor, setSensor] = useState<Sensor>('temperature')
   const history = useHistory(sensor, snapshot?.timestamp)
   const info = sensors[sensor]
+  const latest = history.points?.at(-1)
+  const latestSeverity = latest && readingSeverity(sensor, latest.value)
   return <>
     <div className="filters" aria-label="Sensor">{sensorKeys.map(key => <button key={key} aria-pressed={sensor === key} onClick={() => setSensor(key)}>{sensors[key].label}</button>)}</div>
     {history.failed ? <Notice error retry={history.retry}>Unable to load sensor history.</Notice> : !history.points ? <Notice>Loading sensor history…</Notice> :
       <div className="analytics-grid">
         <Trend sensor={sensor} points={history.points} />
-        <section className="panel history"><h2>Historical readings</h2><p className="muted">Most recent · {info.label}</p>
+        <section className="panel history"><h2>Historical readings</h2><p className="muted">{info.label}</p>
+          {latest && <div className="latest-reading">
+            <p className="muted">Last updated <time dateTime={latest.timestamp}>{formatDate(latest.timestamp)}</time></p>
+            <Badge tone={tone(latestSeverity)}>{latestSeverity ?? 'Normal'}</Badge>
+          </div>}
           {history.points.length ? <table><thead><tr><th scope="col">Time</th><th scope="col">Reading</th><th scope="col">Status</th></tr></thead>
           <tbody>{[...history.points].reverse().slice(0, 8).map((point, i) => {
             const severity = readingSeverity(sensor, point.value)

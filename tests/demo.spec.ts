@@ -2,6 +2,8 @@ import { expect, test } from '@playwright/test'
 
 test('all simulator scenarios propagate to the dashboard and alerts', async ({ page }) => {
   await page.goto('/')
+  await expect(page.getByRole('heading', { name: 'Welcome to NEST AI' })).toBeVisible()
+  await page.getByRole('link', { name: 'Open dashboard' }).click()
   await expect(page.getByRole('heading', { name: 'Everything is safe' })).toBeVisible()
   await expect(page.locator('.hero')).toHaveCSS('background-color', 'rgb(221, 240, 227)')
   for (const [label, value, status] of [
@@ -31,8 +33,9 @@ test('analytics supports all sensors and mobile layout stays within the viewport
     await page.getByRole('button', { name: sensor, exact: true }).click()
     await expect(page.getByRole('img', { name: sensor + ' history chart' })).toBeVisible()
     await expect(page.getByRole('table').getByRole('row')).toHaveCount(9)
+    await expect(page.getByText('Last updated')).toBeVisible()
   }
-  await page.goto('/')
+  await page.goto('/#overview')
   await expect(page.getByRole('heading', { name: 'Everything is safe' })).toBeVisible()
   await page.evaluate(() => document.fonts.ready)
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy()
