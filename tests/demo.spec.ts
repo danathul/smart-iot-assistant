@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 
 test('all simulator scenarios propagate to the dashboard and alerts', async ({ page }) => {
   await page.goto('/')
-  await expect(page.getByRole('heading', { name: 'Welcome to NEST AI' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Welcome to SENSEORA' })).toBeVisible()
   await page.getByRole('link', { name: 'Open dashboard' }).click()
   await expect(page.getByRole('heading', { name: 'Everything is safe' })).toBeVisible()
   await expect(page.locator('.hero')).toHaveCSS('background-color', 'rgb(221, 240, 227)')

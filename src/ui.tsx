@@ -20,7 +20,7 @@ export function Orb({ icon, scope, mobile, className = '' }: { icon: string; sco
 export function Brand() {
   return <a className="brand" href="#overview">
     <span className="brand-mark"><Icon name="HomeIcon" mobile /><i /></span>
-    <span><strong>NEST AI</strong><small>HOME MONITORING</small></span>
+    <span><strong>SENSEORA</strong><small>Intelligence That Watches Over</small></span>
   </a>
 }
 export function Badge({ children, tone = 'accent' }: { children: ReactNode; tone?: string }) {

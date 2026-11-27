@@ -1,6 +1,8 @@
-# NEST AI
+# SENSEORA
 
-Responsive React, Vite, and TypeScript frontend for NEST AI.
+**Intelligence That Watches Over**
+
+Responsive React, Vite, and TypeScript frontend for SENSEORA.
 The approved light theme uses mist backgrounds, white cards, teal controls, and distinct status colors.
 
 [Figma design and prototype](https://www.figma.com/design/tG1inuztzjnfehjM9DqThk)

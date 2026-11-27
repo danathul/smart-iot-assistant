@@ -67,12 +67,12 @@ function App() {
       window.removeEventListener('offline', syncNetwork)
     }
   }, [])
-  useEffect(() => { document.title = route === 'welcome' ? 'NEST AI' : title + ' | NEST AI' }, [route, title])
+  useEffect(() => { document.title = route === 'welcome' ? 'SENSEORA' : title + ' | SENSEORA' }, [route, title])
   if (route === 'welcome') {
     return <main className="welcome">
       <section className="panel welcome-card">
         <Brand />
-        <h1>Welcome to NEST AI</h1>
+        <h1>Welcome to SENSEORA</h1>
         <p className="muted">See how your home is doing, check sensor readings, and review alerts in one place.</p>
         {services.demoTelemetry && <p className="muted welcome-note">This demo uses simulated sensors.</p>}
         <a className="control primary" href="#overview">Open dashboard<Icon name="ArrowIcon" /></a>
